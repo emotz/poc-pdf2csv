@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fse = require('fs-extra');
 const pdfjsLib  = require('pdfjs-dist');
 const json2csv  = require('json2csv');
 
@@ -12,6 +12,7 @@ process.argv.forEach(function (val, index, array) {
 
 pdfjsLib.getDocument('test.pdf').then(async function (doc) {
     let fieldarray = [];
+    let page = await doc.getPage(1);
     for (let i=1; i<=doc.numPages; i++){
         let page = await doc.getPage(i);
         let annotations = await page.getAnnotations();
@@ -22,7 +23,7 @@ pdfjsLib.getDocument('test.pdf').then(async function (doc) {
             if (field.fieldType == 'Ch' && field.combo == true) fieldType ='select list';
             if (field.fieldType == 'Tx') fieldType = 'input text';
 
-            let fieldobj = { question: field.fieldName, 
+            let fieldobj = { question: field.fieldName , 
                 fieldName: field.fieldName,
                 fieldID: field.id,
                 fieldType: fieldType,
@@ -33,5 +34,5 @@ pdfjsLib.getDocument('test.pdf').then(async function (doc) {
         }, this);
     }
     let csv = json2csv({ data: fieldarray, fields: fields, del: ';' });
-    return fs.writeFile('exportpdf.csv', csv);
+    await fse.writeFile('exportpdf.csv', csv);
 });
