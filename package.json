@@ -1,0 +1,29 @@
+{
+  "name": "pdftocsv",
+  "version": "0.1.0",
+  "description": "Simple export PDF form fields properties to csv file",
+  "main": "main.js",
+  "dependencies": {
+    "json2csv": "^3.11.1",
+    "pdfjs-dist": "^1.9.491"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emotz/pdftocsv.git"
+  },
+  "keywords": [
+    "pdf",
+    "annotations",
+    "pdf.js"
+  ],
+  "author": "Emotz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emotz/pdftocsv/issues"
+  },
+  "homepage": "https://github.com/emotz/pdftocsv#readme"
+}
